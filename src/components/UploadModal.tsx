@@ -27,11 +27,34 @@ export const UploadModal = ({ isOpen, onClose }: UploadModalProps) => {
     setFormData(prev => ({ ...prev, file }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Upload form submitted:", formData);
-    // File upload logic will be implemented with Supabase storage
-    onClose();
+    
+    if (!formData.file) {
+      alert("Please select a file to upload");
+      return;
+    }
+
+    try {
+      // TODO: Implement Supabase storage upload
+      console.log("Uploading file:", formData.file.name);
+      alert(`Resource "${formData.title}" uploaded successfully! (Demo mode)`);
+      
+      // Reset form
+      setFormData({
+        title: "",
+        description: "",
+        category: "",
+        type: "",
+        price: "",
+        file: null,
+      });
+      onClose();
+    } catch (error) {
+      console.error("Upload error:", error);
+      alert("Upload failed. Please try again.");
+    }
   };
 
   const getTypeIcon = (type: string) => {

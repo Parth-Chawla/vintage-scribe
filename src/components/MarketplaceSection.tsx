@@ -60,6 +60,12 @@ export const MarketplaceSection = () => {
   const [selectedType, setSelectedType] = useState("all");
   const [isTrendingOpen, setIsTrendingOpen] = useState(false);
 
+  const handlePurchase = (resource: any) => {
+    console.log("Purchasing resource:", resource);
+    // TODO: Implement Stripe payment integration
+    alert(`Purchasing: ${resource.title} for $${resource.price}`);
+  };
+
   const getTypeIcon = (type: string) => {
     switch (type) {
       case "ebook": return <BookOpen className="h-4 w-4" />;
@@ -212,7 +218,10 @@ export const MarketplaceSection = () => {
                     </div>
                   </div>
 
-                  <Button className="w-full btn-vintage text-primary-foreground">
+                  <Button 
+                    onClick={() => handlePurchase(resource)}
+                    className="w-full btn-vintage text-primary-foreground"
+                  >
                     Purchase Now
                   </Button>
                 </div>
